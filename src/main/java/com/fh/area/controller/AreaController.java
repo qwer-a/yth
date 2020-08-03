@@ -15,6 +15,11 @@ public class AreaController {
     @Autowired
     private AreaService areaService;
 
+    @RequestMapping("test")
+    public String test(){
+        return "测试";
+    }
+
     @RequestMapping("queryList")
     @Ignore
     public ServerResponse queryList(){
