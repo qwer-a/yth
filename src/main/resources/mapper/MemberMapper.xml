@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.member.mapper.MemberMapper">
+
+    <!--查询-->
+    <select id="queryMemberList" resultType="com.fh.member.model.Member">
+        select tm.*,ta.areaName,ta2.areaName2,ta3.areaName3 from t_member tm
+        left join t_area ta on tm.areaId = ta.areaId
+        left join t_area2 ta2 on tm.areaId = ta2.areaId2
+        left join t_area3 ta3 on tm.areaId = ta3.areaId3
+        order by isNotAdd
+    </select>
+
+    <!--//回显-->
+    <select id="toUpdate" parameterType="java.lang.Integer" resultType="com.fh.member.model.Member">
+        select * from t_member where id=#{id}
+    </select>
+
+    <!--//修改-->
+   <update id="updateMember" parameterType="com.fh.member.model.Member">
+        update t_member set name=#{name},password=#{password},phone=#{phone},
+        areaId=#{areaId},areaId2=#{areaId2},areaId3=#{areaId3}
+        where id=#{id}
+    </update>
+
+    <!--//删除-->
+    <delete id="deleteMember" parameterType="java.lang.Integer">
+        delete from t_member where id=#{id}
+    </delete>
+
+    <!--//设为默认地址-->
+    <update id="updateAddress" parameterType="java.lang.Integer">
+        update t_member set isNotAdd = 1 where id = #{id}
+    </update>
+
+    <!--//默认地址-->
+    <update id="moAddress" parameterType="java.lang.Integer">
+        update t_member set isNotAdd = 2 where id = #{id}
+    </update>
+
+
+</mapper>
